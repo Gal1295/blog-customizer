@@ -5,6 +5,7 @@ type UseOutsideClickClose = {
 	onChange: (newValue: boolean) => void;
 	onClose?: () => void;
 	rootRef: React.RefObject<HTMLDivElement>;
+	event?: 'click' | 'mousedown';
 };
 
 export const useOutsideClickClose = ({
@@ -12,8 +13,11 @@ export const useOutsideClickClose = ({
 	rootRef,
 	onClose,
 	onChange,
+	event = 'click',
 }: UseOutsideClickClose) => {
 	useEffect(() => {
+		// Останавливаем эффект, если форма закрыта
+		if (!isOpen) return;
 		const handleClick = (event: MouseEvent) => {
 			const { target } = event;
 			if (target instanceof Node && !rootRef.current?.contains(target)) {
@@ -22,10 +26,10 @@ export const useOutsideClickClose = ({
 			}
 		};
 
-		window.addEventListener('mousedown', handleClick);
+		window.addEventListener(event, handleClick);
 
 		return () => {
-			window.removeEventListener('mousedown', handleClick);
+			window.removeEventListener(event, handleClick);
 		};
-	}, [onClose, onChange, isOpen]);
+	}, [isOpen, rootRef, onClose, onChange, event]);
 };

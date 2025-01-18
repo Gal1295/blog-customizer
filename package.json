@@ -34,6 +34,7 @@
 		"eslint-plugin-prettier": "^4.2.1",
 		"eslint-plugin-react": "^7.32.2",
 		"eslint-plugin-react-hooks": "^4.6.0",
+		"eslint-plugin-storybook": "^0.11.2",
 		"html-webpack-plugin": "^5.5.1",
 		"husky": "^8.0.3",
 		"lint-staged": "^13.2.2",
@@ -60,6 +61,7 @@
 	},
 	"scripts": {
 		"build": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.js --env env=prod",
+		"dev": "webpack serve --config webpack/webpack.config.js --env env=dev",
 		"start": "webpack serve --config webpack/webpack.config.js --env env=dev",
 		"stylelint": "stylelint \"src/**/*.scss\"",
 		"stylelint:fix": "stylelint \"src/**/*.scss\" --fix",
